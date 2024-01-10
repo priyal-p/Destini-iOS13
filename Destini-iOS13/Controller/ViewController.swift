@@ -38,33 +38,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func choiceMade(_ sender: UIButton) {
+        guard currentQuestion < stories.count - 1 else { return }
         let currentSelection = sender.currentTitle!
         if currentSelection == stories[currentQuestion].choice1 {
-            if nextQuestion != 0 {
-                currentQuestion = nextQuestion
-                nextQuestion = currentQuestion + 2
-            } else {
-                nextQuestion = currentQuestion + 2
-                currentQuestion = currentQuestion + 1
-            }
+            currentQuestion += 1
         } else {
-            if nextQuestion != 0 {
-                currentQuestion = nextQuestion
-                nextQuestion = currentQuestion + 2
-            } else {
-                nextQuestion = currentQuestion + 1
-                currentQuestion = currentQuestion + 2
-            }
+            currentQuestion += 2
         }
         updateUI()
     }
     
     func updateUI() {
-        if currentQuestion < stories.count - 1 {
-            storyLabel.text = stories[currentQuestion].title
-            choice1Button.setTitle(stories[currentQuestion].choice1, for: .normal)
-            choice2Button.setTitle(stories[currentQuestion].choice2, for: .normal)
-        }
+        guard currentQuestion < stories.count - 1 else { return }
+
+        storyLabel.text = stories[currentQuestion].title
+        choice1Button.setTitle(stories[currentQuestion].choice1, for: .normal)
+        choice2Button.setTitle(stories[currentQuestion].choice2, for: .normal)
     }
 }
 
